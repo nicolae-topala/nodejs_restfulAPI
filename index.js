@@ -66,7 +66,7 @@ let unifiedServer = function (req, res) {
   let headers = req.headers;
 
   // Get the payload, if any
-  let decoder = new StringDecoder('utf-8');
+  let decoder = new StringDecoder('utf8');
   let buffer = '';
   req.on('data', function (data) {
     buffer += decoder.write(data);
@@ -116,10 +116,8 @@ let unifiedServer = function (req, res) {
 // Define the handlers for the
 let handlers = {};
 
-// Sample handler
-handlers.sample = function (data, callback) {
-  // Callback a http status code and a payload object
-  callback(406, { name: 'sample handler' });
+handlers.ping = function (data, callback) {
+  callback(200);
 };
 
 // Not found handler
@@ -129,5 +127,5 @@ handlers.notFound = function (data, callback) {
 
 // Define a request router
 let router = {
-  sample: handlers.sample,
+  ping: handlers.ping,
 };
